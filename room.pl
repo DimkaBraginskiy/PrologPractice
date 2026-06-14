@@ -1,5 +1,15 @@
-    room(sleeping).
-    room(kitchen).
+% ===== DYNAMIC DECLARATIONS (must come first) =====
+:- dynamic position/4.
+:- dynamic occupies/4.
+:- dynamic at/4.
+
+% ===== ROOMS =====
+room(sleeping).
+room(kitchen).
+connected(sleeping, kitchen).
+
+% ===== THE ROBOT (agent that moves) =====
+at(robot, kitchen, 3, 6).
 
     furniture(table).
     furniture(dining_table).
@@ -92,8 +102,7 @@ distance(A, B, D) :-
 near(A, B) :-
     distance(A, B, D),
     A \= B,
-    D =< 2,
-    !.
+    D =< 2.
 
 is_between(B, A, C) :-
     position(A, _, X1, Y1),
@@ -110,13 +119,6 @@ num_between(Lo, Mid, Hi) :-
 on(book,   shelves).
 on(remote, dining_table).
 on(cup,    dining_table).
-
-
-% Dynamic
-
-:- dynamic position/4.
-:- dynamic occupies/4.
-:- dynamic at/4.
 
 
 % Add, remove, move operations:
